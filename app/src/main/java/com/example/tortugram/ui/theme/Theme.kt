@@ -2,33 +2,37 @@ package com.example.tortugram.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.Composable
-import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.darkColorScheme
-import androidx.tv.material3.lightColorScheme
 
-@OptIn(ExperimentalTvMaterial3Api::class)
+// Tortugram siempre usa el esquema oscuro verde de la marca,
+// sin importar el modo claro/oscuro del sistema.
+private val TortugramColorScheme = darkColorScheme(
+    primary = TortugramPrimary,
+    onPrimary = TortugramOnBackground,
+    secondary = TortugramPrimaryLight,
+    onSecondary = TortugramBackground,
+
+    background = TortugramBackground,
+    onBackground = TortugramOnBackground,
+
+    surface = TortugramSurface,
+    onSurface = TortugramOnBackground,
+
+    surfaceVariant = TortugramSurfaceVariant,
+    onSurfaceVariant = TortugramOnSurfaceVariant,
+)
+
 @Composable
 fun TortugramTheme(
-    isInDarkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit,
+
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
 ) {
-    val colorScheme = if (isInDarkTheme) {
-        darkColorScheme(
-            primary = Purple80,
-            secondary = PurpleGrey80,
-            tertiary = Pink80
-        )
-    } else {
-        lightColorScheme(
-            primary = Purple40,
-            secondary = PurpleGrey40,
-            tertiary = Pink40
-        )
-    }
     MaterialTheme(
-        colorScheme = colorScheme,
+        colorScheme = TortugramColorScheme,
         typography = Typography,
         content = content
     )
 }
+

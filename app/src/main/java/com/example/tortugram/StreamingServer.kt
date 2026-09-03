@@ -11,6 +11,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 import java.io.RandomAccessFile
+import java.util.concurrent.ConcurrentHashMap
 
 /**
  * Servidor HTTP local (127.0.0.1) que actúa de puente entre TDLib y ExoPlayer.
@@ -28,6 +29,16 @@ object StreamingServer {
     private const val CHUNK_SIZE = 512 * 1024 // 512 KB por petición a TDLib
     private const val MAX_RETRIES_PER_CHUNK = 40
     private const val RETRY_DELAY_MS = 150L
+
+    // Ventana que se pide "por adelantado" en segundo plano, y margen
+    // (respecto a lo ya adelantado) a partir del cual se dispara la
+    // siguiente ventana. No afecta la lectura síncrona existente: solo
+    // hace que, cuando el loop llegue ahí, los datos ya estén en TDLib.
+    private const val PREFETCH_WINDOW = 6L * 1024 * 1024 // 6 MB
+    private const val PREFETCH_TRIGGER_MARGIN = 2L * 1024 * 1024 // 2 MB
+
+    // offset hasta el cual ya se pidió prefetch, por fileId.
+    private val prefetchedUpTo = ConcurrentHashMap<Int, Long>()
 
     private var server: EmbeddedServer<*, *>? = null
 
@@ -79,6 +90,31 @@ object StreamingServer {
                                 minOf(CHUNK_SIZE.toLong(), totalSize - position)
                             } else {
                                 CHUNK_SIZE.toLong()
+                            }
+
+                            // Adelantarse: si nos estamos acercando al borde
+                            // de lo que ya se pidió con prefetch, disparamos
+                            // (sin esperar) la siguiente ventana. La lectura
+                            // de abajo sigue igual que antes.
+                            val prefetchedTo = prefetchedUpTo.getOrDefault(fileId, position)
+                            if (
+                                (totalSize <= 0 || prefetchedTo < totalSize) &&
+                                position + PREFETCH_TRIGGER_MARGIN >= prefetchedTo
+                            ) {
+                                val prefetchStart = maxOf(prefetchedTo, position)
+                                val prefetchLength = if (totalSize > 0) {
+                                    minOf(PREFETCH_WINDOW, totalSize - prefetchStart)
+                                } else {
+                                    PREFETCH_WINDOW
+                                }
+                                if (prefetchLength > 0) {
+                                    TelegramManager.prefetchRange(
+                                        fileId = fileId,
+                                        offset = prefetchStart,
+                                        length = prefetchLength
+                                    )
+                                    prefetchedUpTo[fileId] = prefetchStart + prefetchLength
+                                }
                             }
 
                             var partialFile: dev.g000sha256.tdl.dto.File? = null
@@ -138,6 +174,7 @@ object StreamingServer {
     fun stop() {
         server?.stop(500, 1000)
         server = null
+        prefetchedUpTo.clear()
     }
 
     fun urlFor(fileId: Int, totalSize: Long): String =

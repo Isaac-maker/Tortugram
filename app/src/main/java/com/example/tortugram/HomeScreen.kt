@@ -1,20 +1,27 @@
 package com.example.tortugram
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.*
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.MaterialTheme
+import androidx.tv.material3.Tab
+import androidx.tv.material3.TabRow
+import androidx.tv.material3.Text
 import coil.compose.AsyncImage
 import dev.g000sha256.tdl.dto.Chat
 import java.io.File
@@ -62,22 +69,22 @@ fun HomeScreen(
 
         // Barra de pestañas para las carpetas (Chat Folders)
         if (folders.isNotEmpty()) {
-            ScrollableTabRow(
+            TabRow(
                 selectedTabIndex = folders.indexOfFirst { it.id == selectedFolderId }.coerceAtLeast(0),
-                edgePadding = 0.dp,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 folders.forEach { folder ->
                     Tab(
                         selected = folder.id == selectedFolderId,
-                        onClick = { TelegramManager.selectFolder(folder.id) },
-                        text = {
-                            Text(
-                                text = folder.title,
-                                style = MaterialTheme.typography.titleMedium
-                            )
-                        }
-                    )
+                        onFocus = { TelegramManager.selectFolder(folder.id) },
+                        onClick = { TelegramManager.selectFolder(folder.id) }
+                    ) {
+                        Text(
+                            text = folder.title,
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp)
+                        )
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -117,6 +124,9 @@ private fun ChatCard(chat: Chat, onClick: () -> Unit) {
         mutableStateOf(photoFile?.local?.path ?: "")
     }
 
+    // Controla si este card tiene el foco (navegación con el D-pad del control).
+    var isFocused by remember { mutableStateOf(false) }
+
     LaunchedEffect(photoFile?.id) {
         if (localPath.isEmpty() && photoFile != null) {
             TelegramManager.downloadFile(photoFile.id) { path ->
@@ -128,6 +138,7 @@ private fun ChatCard(chat: Chat, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .onFocusChanged { isFocused = it.isFocused }
             .clickable { onClick() },
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -136,7 +147,12 @@ private fun ChatCard(chat: Chat, onClick: () -> Unit) {
                 .fillMaxWidth()
                 .aspectRatio(1f)
                 .clip(RoundedCornerShape(16.dp))
-                .background(MaterialTheme.colorScheme.surfaceVariant),
+                .background(MaterialTheme.colorScheme.surfaceVariant)
+                .border(
+                    width = if (isFocused) 8.dp else 0.dp,
+                    color = Color(0xFFCCED12),
+                    shape = RoundedCornerShape(16.dp)
+                ),
             contentAlignment = Alignment.Center
         ) {
             if (localPath.isNotEmpty() && File(localPath).exists()) {
