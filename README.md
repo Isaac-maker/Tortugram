@@ -7,7 +7,7 @@
 **A specialized Telegram streaming client designed for big screens.**  
 *Un cliente de Telegram especializado en streaming de video para pantallas grandes.*
 
-[![Download APK](https://img.shields.io/badge/Download-APK%20v1.0.0-2ba640?style=for-the-badge&logo=android)](https://github.com/Isaac-maker/Tortugram/releases/tag/v1.0.0)
+[![Download APK](https://img.shields.io/badge/Download-APK%20v2.0.0-2ba640?style=for-the-badge&logo=android)](https://github.com/Isaac-maker/Tortugram/releases/tag/v2.0.0)
 [![License](https://img.shields.io/badge/License-Open%20Source-blue?style=for-the-badge)](https://github.com/Isaac-maker/Tortugram)
 ---
 
