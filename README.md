@@ -34,7 +34,7 @@ Engineered with large displays in mind, it delivers an intuitive navigation layo
 
 ### Download & Installation
 Get the latest build directly from the releases section:
-👉 **[Download Tortugram v1.0.0 APK](https://github.com/Isaac-maker/Tortugram/releases/tag/v1.0.0)**
+👉 **[Download Tortugram v2.0.0 APK](https://github.com/Isaac-maker/Tortugram/releases/tag/v2.0.0)**
 
 ### Contributing
 Tortugram is an open-source initiative. Contributions, feature requests, and pull requests are welcome to help expand and refine future releases.
@@ -60,7 +60,7 @@ Optimizada para pantallas grandes, ofrece una interfaz de navegación intuitiva 
 
 ### Descarga e Instalación
 Obtén la última versión compilada desde el área de lanzamientos:
-👉 **[Descargar APK de Tortugram v1.0.0](https://github.com/Isaac-maker/Tortugram/releases/tag/v1.0.0)**
+👉 **[Descargar APK de Tortugram v2.0.0](https://github.com/Isaac-maker/Tortugram/releases/tag/v2.0.0)**
 
 ### Contribuciones
 Este es un proyecto de código abierto. Cualquier mejora, corrección o propuesta por parte de la comunidad es bienvenida.
