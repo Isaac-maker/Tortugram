@@ -33,6 +33,9 @@ class MainActivity : ComponentActivity() {
         // --- Login: SIN CAMBIOS, tal cual funcionaba ---
         TelegramManager.initClient(applicationContext)
 
+        // --- Nuevo: gestor de almacenamiento (no toca login/QR) ---
+        StorageManager.init(applicationContext)
+
         // --- Nuevo: arranca el servidor local que permite el streaming de video ---
         StreamingServer.start()
 
@@ -63,11 +66,17 @@ fun AppNavigation() {
 
     var selectedChatId by remember { mutableStateOf<Long?>(null) }
     var selectedVideo by remember { mutableStateOf<Pair<MessageVideo, String>?>(null) }
+    var showStorage by remember { mutableStateOf(false) }
 
     when {
         // --- Login: SIN CAMBIOS ---
         !isLoggedIn && isPasswordRequired -> PasswordScreen()
         !isLoggedIn -> LoginScreen(qrLink = qrLink)
+
+        // --- Nuevo: pantalla de almacenamiento ---
+        showStorage -> StorageScreen(
+            onBack = { showStorage = false }
+        )
 
         // --- Nuevo: Reproductor a pantalla completa (streaming) ---
         selectedVideo != null -> {
@@ -92,12 +101,16 @@ fun AppNavigation() {
                     chatId = selectedChatId!!,
                     onVideoClick = { videoContent, label ->
                         selectedVideo = videoContent to label
-                    }
+                    },
+                    onBack = { selectedChatId = null }
                 )
             }
         }
 
         // --- Cuadrícula de canales/grupos ---
-        else -> HomeScreen(onChatClick = { id -> selectedChatId = id })
+        else -> HomeScreen(
+            onChatClick = { id -> selectedChatId = id },
+            onOpenStorage = { showStorage = true }
+        )
     }
 }

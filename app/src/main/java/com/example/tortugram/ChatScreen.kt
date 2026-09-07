@@ -1,5 +1,6 @@
 package com.example.tortugram
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -54,8 +55,14 @@ import java.io.File
 @Composable
 fun ChatScreen(
     chatId: Long,
-    onVideoClick: (MessageVideo, String) -> Unit
+    onVideoClick: (MessageVideo, String) -> Unit,
+    onBack: () -> Unit = {}
 ) {
+
+    // Antes, el botón "volver" del control remoto no estaba interceptado
+    // aquí, así que el sistema lo tomaba como "salir de la app". Ahora lo
+    // capturamos para volver al HomeScreen en su lugar.
+    BackHandler(onBack = onBack)
 
     val messages by
     TelegramManager.messages.collectAsState()
@@ -174,8 +181,11 @@ fun ChatScreen(
 
                     val title =
                         item.second
-                            .caption
-                            .text
+                            .video
+                            .fileName
+                            .ifEmpty {
+                                item.second.caption.text
+                            }
                             .ifEmpty {
                                 "Video"
                             }
@@ -250,7 +260,7 @@ private fun VideoThumbnailCard(
                     }
                     .border(
                         width = if (isFocused) 6.dp else 0.dp,
-                        color = Color(0xFFCCED12),
+                        color = MaterialTheme.colorScheme.primary,
                         shape = RoundedCornerShape(12.dp)
                     ),
 
@@ -305,31 +315,39 @@ private fun VideoThumbnailCard(
             )
         }
 
-        if (
-            videoContent.caption.text.isNotEmpty()
-        ) {
+        // Nombre real del archivo de video (no el caption del mensaje).
+        // Si Telegram no trae un nombre, caemos al caption y luego a un
+        // texto genérico, para nunca dejar la tarjeta sin etiqueta.
+        val displayName =
+            videoContent.video.fileName
+                .ifEmpty { videoContent.caption.text }
+                .ifEmpty { "Video sin nombre" }
 
-            Spacer(
-                modifier =
-                    Modifier.height(4.dp)
-            )
+        Spacer(
+            modifier =
+                Modifier.height(4.dp)
+        )
 
-            Text(
+        Text(
 
-                text =
-                    videoContent.caption.text,
+            text =
+                displayName,
 
-                style =
-                    MaterialTheme
-                        .typography
-                        .bodySmall,
+            style =
+                MaterialTheme
+                    .typography
+                    .bodySmall,
+            color =
+                MaterialTheme
+                    .colorScheme
+                    .onBackground,
 
-                maxLines = 1,
 
-                overflow =
-                    TextOverflow.Ellipsis
-            )
-        }
+            maxLines = 1,
+
+            overflow =
+                TextOverflow.Ellipsis
+        )
     }
 
 

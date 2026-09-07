@@ -1,5 +1,7 @@
 package com.example.tortugram
 
+import android.app.Activity
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -8,16 +10,18 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Button
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
 import androidx.tv.material3.TabRow
@@ -33,11 +37,53 @@ import java.io.File
 
 @Composable
 fun HomeScreen(
-    onChatClick: (Long) -> Unit = {}
+    onChatClick: (Long) -> Unit = {},
+    onOpenStorage: () -> Unit = {}
 ) {
     val chats by TelegramManager.chats.collectAsState()
     val folders by TelegramManager.folders.collectAsState()
     val selectedFolderId by TelegramManager.selectedFolderId.collectAsState()
+
+    // HomeScreen es la pantalla raíz: aquí el botón "volver" del control
+    // remoto ya no tiene a dónde más regresar, así que en lugar de dejar
+    // que el sistema cierre la app de una, mostramos una confirmación.
+    var showExitDialog by remember { mutableStateOf(false) }
+    val activity = LocalContext.current as? Activity
+
+    BackHandler {
+        showExitDialog = true
+    }
+
+    if (showExitDialog) {
+        AlertDialog(
+            onDismissRequest = { showExitDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            title = {
+                Text(
+                    text = "Salir de Tortugram",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            },
+            text = {
+                Text(
+                    text = "¿Seguro que quieres salir de la aplicación?",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            },
+            confirmButton = {
+                Button(onClick = { activity?.finish() }) {
+                    Text("Sí")
+                }
+            },
+            dismissButton = {
+                Button(onClick = { showExitDialog = false }) {
+                    Text("No")
+                }
+            }
+        )
+    }
 
     Column(
         modifier = Modifier
@@ -56,12 +102,21 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.onBackground
             )
 
-            if (chats.isNotEmpty()) {
-                Text(
-                    text = "${chats.size} chats",
-                    style = MaterialTheme.typography.labelLarge,
-                    color = MaterialTheme.colorScheme.primary
-                )
+            Row(verticalAlignment = Alignment.CenterVertically) {
+
+                if (chats.isNotEmpty()) {
+                    Text(
+                        text = "${chats.size} chats",
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary
+                    )
+
+                    Spacer(modifier = Modifier.width(16.dp))
+                }
+
+                Button(onClick = onOpenStorage) {
+                    Text("🗄 Almacenamiento")
+                }
             }
         }
 
@@ -150,7 +205,7 @@ private fun ChatCard(chat: Chat, onClick: () -> Unit) {
                 .background(MaterialTheme.colorScheme.surfaceVariant)
                 .border(
                     width = if (isFocused) 8.dp else 0.dp,
-                    color = Color(0xFFCCED12),
+                    color = MaterialTheme.colorScheme.primary,
                     shape = RoundedCornerShape(16.dp)
                 ),
             contentAlignment = Alignment.Center

@@ -34,8 +34,8 @@ object TelegramManager {
 
     private const val TAG = "TelegramManager"
 
-    private const val API_ID =   00000000  /**  ---> Aqui va API ID      esto se obtiene en https://my.telegram.org/auth   */
-    private const val API_HASH = "Aqui va API HASH" /**  ---> Aqui va API hash     esto se obtiene en https://my.telegram.org/auth   */
+    private const val API_ID =  36017199
+    private const val API_HASH = "6ce83dcc204c5805c876cc6ddf6bc6b2"
 
     /*
      * Tamaño de página del historial.
@@ -409,6 +409,12 @@ object TelegramManager {
                     }
                 }
             }
+
+            // Cada archivo descargado puede acercarnos al límite de
+            // almacenamiento. Se lo avisamos a StorageManager para que
+            // decida si limpia o solo notifica. Esto NUNCA toca la
+            // base de datos ni la sesión, solo archivos descargados.
+            StorageManager.onFileDownloaded()
         }
     }
 
@@ -733,6 +739,11 @@ object TelegramManager {
                 synchronous = true
             )
 
+        // El streaming de video (downloadRange) es la fuente principal
+        // de crecimiento del almacenamiento, así que también avisamos
+        // aquí a StorageManager.
+        StorageManager.onFileDownloaded()
+
         return if (
             result is TdlResult.Success<*>
         ) {
@@ -745,4 +756,72 @@ object TelegramManager {
         }
     }
 
+    // ------------------------------------------------------------------
+    // Almacenamiento (StorageScreen / StorageManager)
+    //
+    // Estas dos funciones son las ÚNICAS que tocan el tema de espacio en
+    // disco, y usan las funciones propias de TDLib para eso (nunca
+    // File.deleteRecursively() a mano). No modifican databaseDirectory,
+    // databaseEncryptionKey ni el estado de AuthorizationState, así que
+    // la sesión nunca se ve afectada.
+    // ------------------------------------------------------------------
+
+    /**
+     * Estadísticas rápidas de espacio usado por TDLib.
+     * filesSize = archivos descargados (fotos, videos, miniaturas...).
+     * databaseSize = base de datos de TDLib (mensajes, sesión, etc).
+     */
+    suspend fun getStorageStatisticsFast(): StorageInfo {
+
+        val result = client?.getStorageStatisticsFast()
+
+        val stats =
+            (result as? TdlResult.Success<*>)
+                ?.result as? dev.g000sha256.tdl.dto.StorageStatisticsFast
+
+        return StorageInfo(
+            filesSize = stats?.filesSize ?: 0L,
+            databaseSize = stats?.databaseSize ?: 0L,
+            fileCount = stats?.fileCount ?: 0
+        )
+    }
+
+    /**
+     * Le pide a TDLib que recorte los archivos descargados hasta que el
+     * total pese como máximo [maxTotalSizeBytes] (0 = borrar todo lo
+     * descargable). TDLib decide qué borrar (los más viejos primero) y
+     * jamás toca la base de datos ni la autenticación.
+     *
+     * NOTA: si el nombre/orden de los parámetros de optimizeStorage no
+     * coincide exactamente con esta versión de tdl-coroutines, el
+     * autocompletado de Android Studio te va a mostrar la firma real;
+     * es la única línea de todo esto que depende de la versión exacta
+     * de la librería.
+     */
+    suspend fun optimizeStorage(maxTotalSizeBytes: Long): Long {
+
+        val result = client?.optimizeStorage(
+            size = maxTotalSizeBytes,
+            ttl = 0,
+            count = 0,
+            immunityDelay = 0,
+            fileTypes = emptyArray(),
+            chatIds = LongArray(0),
+            excludeChatIds = LongArray(0),
+            returnDeletedFileStatistics = false,
+            chatLimit = 0
+        )
+
+        val stats =
+            (result as? TdlResult.Success<*>)
+                ?.result as? dev.g000sha256.tdl.dto.StorageStatistics
+
+        return stats?.size ?: 0L
+    }
 }
+
+data class StorageInfo(
+    val filesSize: Long = 0L,
+    val databaseSize: Long = 0L,
+    val fileCount: Int = 0
+)
