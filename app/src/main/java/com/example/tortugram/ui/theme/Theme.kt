@@ -5,11 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.darkColorScheme
 
-// Tortugram siempre usa el esquema oscuro verde de la marca,
-// sin importar el modo claro/oscuro del sistema.
+// Tortugram siempre usa el esquema oscuro neutro de la marca,
+// con un acento azul eléctrico fresco, sin importar el modo claro/oscuro
+// del sistema.
 private val TortugramColorScheme = darkColorScheme(
     primary = TortugramPrimary,
-    onPrimary = TortugramOnBackground,
+    onPrimary = TortugramOnPrimary,
     secondary = TortugramPrimaryLight,
     onSecondary = TortugramBackground,
 
@@ -35,4 +36,3 @@ fun TortugramTheme(
         content = content
     )
 }
-
