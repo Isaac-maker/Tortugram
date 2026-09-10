@@ -7,7 +7,7 @@
 **A specialized Telegram streaming client designed for Amazon Fire TV.**  
 *Un cliente de Telegram especializado en streaming de video para dispositivos Amazon Fire TV.*
 
-[![Download APK](https://img.shields.io/badge/Download-APK%20v3.0.0-2ba640?style=for-the-badge&logo=android)](https://github.com/Isaac-maker/Tortugram/releases/tag/v3.0.0)
+[![Download APK](https://img.shields.io/badge/Download-APK%20v4.0.0-2ba640?style=for-the-badge&logo=android)](https://github.com/Isaac-maker/Tortugram/releases/tag/v4.0.0)
 [![License](https://img.shields.io/badge/License-Open%20Source-blue?style=for-the-badge)](https://github.com/Isaac-maker/Tortugram)
 ---
 
@@ -32,9 +32,17 @@ Engineered exclusively for remote-control navigation on **Amazon Fire TV Stick**
 * 🌐 **Full Access:** Seamlessly browse videos across all your personal chats, joined groups, and subscribed channels.
 * 🔓 **100% Open Source:** Free, transparent, and open for community enhancements.
 
+### Release Notes (v4.0.0)
+* **Multilingual Support:** Added support for English (`values-en`), Portuguese (`values-pt`), French (`values-fr`), Russian (`values-ru`), Chinese (`values-zh`), Hindi (`values-hi`), and Japanese (`values-ja`).
+* **New Features & Improvements:**
+  * Implementation of a new cache management system.
+  * Updated color palette across the user interface.
+  * Enhanced video player controls, adding new buttons to restart playback, skip to the next video, or return to the previous video.
+* **Dependency Updates:** Updated TDLib to version 1.8.66.
+
 ### Download & Installation
 Get the latest build directly from the releases section:
-👉 **[Download Tortugram v3.0.0 APK](https://github.com/Isaac-maker/Tortugram/releases/tag/v3.0.0)**
+👉 **[Download Tortugram v4.0.0 APK](https://github.com/Isaac-maker/Tortugram/releases/tag/v4.0.0)**
 
 ### Contributing
 Tortugram is an open-source initiative. Contributions, feature requests, and pull requests are welcome to help expand and refine future releases.
@@ -58,9 +66,17 @@ Diseñada exclusivamente para navegación mediante control remoto en dispositivo
 * 🌐 **Acceso Integral:** Navega por los videos disponibles en tus chats privados, grupos y canales suscritos.
 * 🔓 **Código Abierto:** Proyecto libre, transparente y abierto a contribuciones de la comunidad.
 
+### Notas de la versión (v4.0.0)
+* **Soporte multilingüe:** Se ha añadido compatibilidad con Inglés (`values-en`), Portugués (`values-pt`), Francés (`values-fr`), Ruso (`values-ru`), Chino (`values-zh`), Hindi (`values-hi`) y Japonés (`values-ja`).
+* **Nuevas características y mejoras:**
+  * Implementación de un sistema optimizado para la gestión de memoria caché.
+  * Actualización en la paleta de colores de la interfaz de usuario.
+  * Rediseño de los controles del reproductor de video, integrando nuevos botones para reiniciar la reproducción, avanzar al siguiente video o regresar al anterior.
+* **Mantenimiento de dependencias:** Actualización de TDLib a la versión 1.8.66.
+
 ### Descarga e Instalación
 Obtén la última versión compilada desde el área de lanzamientos:
-👉 **[Descargar APK de Tortugram v3.0.0](https://github.com/Isaac-maker/Tortugram/releases/tag/v3.0.0)**
+👉 **[Descargar APK de Tortugram v4.0.0](https://github.com/Isaac-maker/Tortugram/releases/tag/v4.0.0)**
 
 ### Contribuciones
 Este es un proyecto de código abierto. Cualquier mejora, corrección o propuesta por parte de la comunidad es bienvenida.
