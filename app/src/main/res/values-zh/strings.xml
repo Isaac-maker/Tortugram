@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d 个聊天</string>
+    <string name="btn_storage">🗄 存储</string>
+    <string name="btn_language">🌐 语言</string>
+    <string name="loading_folder">正在加载文件夹...</string>
+    <string name="exit_dialog_title">退出 Tortugram</string>
+    <string name="exit_dialog_message">确定要退出应用吗？</string>
+    <string name="btn_yes">是</string>
+    <string name="btn_no">否</string>
+    <string name="btn_cancel">取消</string>
+    <string name="language_dialog_title">选择语言</string>
+    <string name="video_thumbnail_desc">视频缩略图</string>
+    <string name="play_desc">播放</string>
+    <string name="video_no_name">未命名视频</string>
+    <string name="video_title_fallback">视频</string>
+    <string name="btn_back_home">← 返回主页</string>
+
+    <string name="storage_title">存储</string>
+    <string name="btn_back">← 返回</string>
+    <string name="storage_used_label">已用空间</string>
+    <string name="storage_files_label">Telegram 文件 (%1$d)</string>
+    <string name="storage_database_label">数据库（会话、消息）</string>
+    <string name="storage_limit_title">存储限制</string>
+    <string name="auto_clean_enabled">自动清理：已开启</string>
+    <string name="auto_clean_disabled">自动清理：已关闭（仅提醒）</string>
+    <string name="btn_deactivate">关闭</string>
+    <string name="btn_activate">开启</string>
+    <string name="storage_session_note">清理时绝不会退出登录：只会删除 Telegram 在需要时可以重新下载的文件。</string>
+    <string name="btn_cleaning">正在清理...</string>
+    <string name="btn_clean_files">🗑 清理文件</string>
+    <string name="storage_freed_message">已释放 %1$s</string>
+</resources>

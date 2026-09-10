@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d चैट</string>
+    <string name="btn_storage">🗄 स्टोरेज</string>
+    <string name="btn_language">🌐 भाषा</string>
+    <string name="loading_folder">फ़ोल्डर लोड हो रहा है...</string>
+    <string name="exit_dialog_title">Tortugram से बाहर निकलें</string>
+    <string name="exit_dialog_message">क्या आप वाकई ऐप से बाहर निकलना चाहते हैं?</string>
+    <string name="btn_yes">हाँ</string>
+    <string name="btn_no">नहीं</string>
+    <string name="btn_cancel">रद्द करें</string>
+    <string name="language_dialog_title">भाषा चुनें</string>
+    <string name="video_thumbnail_desc">वीडियो थंबनेल</string>
+    <string name="play_desc">चलाएँ</string>
+    <string name="video_no_name">अनाम वीडियो</string>
+    <string name="video_title_fallback">वीडियो</string>
+    <string name="btn_back_home">← होम पर वापस जाएँ</string>
+
+    <string name="storage_title">स्टोरेज</string>
+    <string name="btn_back">← वापस</string>
+    <string name="storage_used_label">उपयोग की गई जगह</string>
+    <string name="storage_files_label">Telegram फ़ाइलें (%1$d)</string>
+    <string name="storage_database_label">डेटाबेस (सत्र, संदेश)</string>
+    <string name="storage_limit_title">स्टोरेज सीमा</string>
+    <string name="auto_clean_enabled">ऑटो-क्लीन: चालू</string>
+    <string name="auto_clean_disabled">ऑटो-क्लीन: बंद (केवल सूचना)</string>
+    <string name="btn_deactivate">बंद करें</string>
+    <string name="btn_activate">चालू करें</string>
+    <string name="storage_session_note">सफाई करते समय सत्र कभी बंद नहीं होता: केवल वे फ़ाइलें हटाई जाती हैं जिन्हें Telegram ज़रूरत पड़ने पर दोबारा डाउनलोड कर सकता है।</string>
+    <string name="btn_cleaning">सफाई हो रही है...</string>
+    <string name="btn_clean_files">🗑 फ़ाइलें साफ़ करें</string>
+    <string name="storage_freed_message">%1$s खाली किया गया</string>
+</resources>

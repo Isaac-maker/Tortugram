@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d чатов</string>
+    <string name="btn_storage">🗄 Хранилище</string>
+    <string name="btn_language">🌐 Язык</string>
+    <string name="loading_folder">Загрузка папки...</string>
+    <string name="exit_dialog_title">Выйти из Tortugram</string>
+    <string name="exit_dialog_message">Вы уверены, что хотите выйти из приложения?</string>
+    <string name="btn_yes">Да</string>
+    <string name="btn_no">Нет</string>
+    <string name="btn_cancel">Отмена</string>
+    <string name="language_dialog_title">Выбрать язык</string>
+    <string name="video_thumbnail_desc">Миниатюра видео</string>
+    <string name="play_desc">Воспроизвести</string>
+    <string name="video_no_name">Видео без названия</string>
+    <string name="video_title_fallback">Видео</string>
+    <string name="btn_back_home">← Назад на главную</string>
+
+    <string name="storage_title">Хранилище</string>
+    <string name="btn_back">← Назад</string>
+    <string name="storage_used_label">Использовано места</string>
+    <string name="storage_files_label">Файлы Telegram (%1$d)</string>
+    <string name="storage_database_label">База данных (сессия, сообщения)</string>
+    <string name="storage_limit_title">Лимит хранилища</string>
+    <string name="auto_clean_enabled">Автоочистка: включена</string>
+    <string name="auto_clean_disabled">Автоочистка: выключена (только уведомление)</string>
+    <string name="btn_deactivate">Выключить</string>
+    <string name="btn_activate">Включить</string>
+    <string name="storage_session_note">Сессия никогда не завершается при очистке: удаляются только файлы, которые Telegram сможет скачать заново при необходимости.</string>
+    <string name="btn_cleaning">Очистка...</string>
+    <string name="btn_clean_files">🗑 Очистить файлы</string>
+    <string name="storage_freed_message">Освобождено %1$s</string>
+</resources>

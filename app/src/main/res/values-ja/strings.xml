@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d件のチャット</string>
+    <string name="btn_storage">🗄 ストレージ</string>
+    <string name="btn_language">🌐 言語</string>
+    <string name="loading_folder">フォルダを読み込み中...</string>
+    <string name="exit_dialog_title">Tortugramを終了</string>
+    <string name="exit_dialog_message">本当にアプリを終了しますか？</string>
+    <string name="btn_yes">はい</string>
+    <string name="btn_no">いいえ</string>
+    <string name="btn_cancel">キャンセル</string>
+    <string name="language_dialog_title">言語を選択</string>
+    <string name="video_thumbnail_desc">動画のサムネイル</string>
+    <string name="play_desc">再生</string>
+    <string name="video_no_name">無題の動画</string>
+    <string name="video_title_fallback">動画</string>
+    <string name="btn_back_home">← ホームに戻る</string>
+
+    <string name="storage_title">ストレージ</string>
+    <string name="btn_back">← 戻る</string>
+    <string name="storage_used_label">使用済み容量</string>
+    <string name="storage_files_label">Telegramファイル（%1$d件）</string>
+    <string name="storage_database_label">データベース（セッション、メッセージ）</string>
+    <string name="storage_limit_title">ストレージの上限</string>
+    <string name="auto_clean_enabled">自動クリーンアップ：オン</string>
+    <string name="auto_clean_disabled">自動クリーンアップ：オフ（通知のみ）</string>
+    <string name="btn_deactivate">オフにする</string>
+    <string name="btn_activate">オンにする</string>
+    <string name="storage_session_note">クリーンアップしてもセッションが終了することはありません。必要になったときにTelegramが再ダウンロードできるファイルだけが削除されます。</string>
+    <string name="btn_cleaning">クリーンアップ中...</string>
+    <string name="btn_clean_files">🗑 ファイルを整理</string>
+    <string name="storage_freed_message">%1$s解放しました</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d discussions</string>
+    <string name="btn_storage">🗄 Stockage</string>
+    <string name="btn_language">🌐 Langue</string>
+    <string name="loading_folder">Chargement du dossier...</string>
+    <string name="exit_dialog_title">Quitter Tortugram</string>
+    <string name="exit_dialog_message">"Voulez-vous vraiment quitter l\'application ?"</string>
+    <string name="btn_yes">Oui</string>
+    <string name="btn_no">Non</string>
+    <string name="btn_cancel">Annuler</string>
+    <string name="language_dialog_title">Choisir la langue</string>
+    <string name="video_thumbnail_desc">Miniature de la vidéo</string>
+    <string name="play_desc">Lire</string>
+    <string name="video_no_name">Vidéo sans nom</string>
+    <string name="video_title_fallback">Vidéo</string>
+    <string name="btn_back_home">"← Retour à l\'accueil"</string>
+
+    <string name="storage_title">Stockage</string>
+    <string name="btn_back">← Retour</string>
+    <string name="storage_used_label">Espace utilisé</string>
+    <string name="storage_files_label">Fichiers Telegram (%1$d)</string>
+    <string name="storage_database_label">Base de données (session, messages)</string>
+    <string name="storage_limit_title">Limite de stockage</string>
+    <string name="auto_clean_enabled">Nettoyage automatique : activé</string>
+    <string name="auto_clean_disabled">Nettoyage automatique : désactivé (notification seulement)</string>
+    <string name="btn_deactivate">Désactiver</string>
+    <string name="btn_activate">Activer</string>
+    <string name="storage_session_note">"La session n\'est jamais fermée lors du nettoyage : seuls les fichiers que Telegram peut retélécharger en cas de besoin sont supprimés."</string>
+    <string name="btn_cleaning">Nettoyage...</string>
+    <string name="btn_clean_files">🗑 Nettoyer les fichiers</string>
+    <string name="storage_freed_message">%1$s libérés</string>
+</resources>

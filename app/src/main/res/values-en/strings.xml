@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d chats</string>
+    <string name="btn_storage">🗄 Storage</string>
+    <string name="btn_language">🌐 Language</string>
+    <string name="loading_folder">Loading folder…</string>
+    <string name="exit_dialog_title">Exit Tortugram</string>
+    <string name="exit_dialog_message">Are you sure you want to exit the app?</string>
+    <string name="btn_yes">Yes</string>
+    <string name="btn_no">No</string>
+    <string name="btn_cancel">Cancel</string>
+    <string name="language_dialog_title">Select language</string>
+    <string name="video_thumbnail_desc">Video thumbnail</string>
+    <string name="play_desc">Play</string>
+    <string name="video_no_name">Unnamed video</string>
+    <string name="video_title_fallback">Video</string>
+    <string name="btn_back_home">← Back to Home</string>
+
+    <string name="storage_title">Storage</string>
+    <string name="btn_back">← Back</string>
+    <string name="storage_used_label">Space used</string>
+    <string name="storage_files_label">Telegram files (%1$d)</string>
+    <string name="storage_database_label">Database (session, messages)</string>
+    <string name="storage_limit_title">Storage limit</string>
+    <string name="auto_clean_enabled">Auto-clean: on</string>
+    <string name="auto_clean_disabled">Auto-clean: off (notify only)</string>
+    <string name="btn_deactivate">Turn off</string>
+    <string name="btn_activate">Turn on</string>
+    <string name="storage_session_note">Your session is never closed when cleaning up: only files that Telegram can download again when needed are deleted.</string>
+    <string name="btn_cleaning">Cleaning...</string>
+    <string name="btn_clean_files">🗑 Clean files</string>
+    <string name="storage_freed_message">Freed up %1$s</string>
+</resources>

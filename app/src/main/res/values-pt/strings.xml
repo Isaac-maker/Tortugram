@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Tortugram</string>
+
+    <string name="app_home_title">Tortugram, by isaac-maker</string>
+    <string name="chats_count">%1$d conversas</string>
+    <string name="btn_storage">🗄 Armazenamento</string>
+    <string name="btn_language">🌐 Idioma</string>
+    <string name="loading_folder">Carregando pasta...</string>
+    <string name="exit_dialog_title">Sair do Tortugram</string>
+    <string name="exit_dialog_message">Tem certeza que deseja sair do aplicativo?</string>
+    <string name="btn_yes">Sim</string>
+    <string name="btn_no">Não</string>
+    <string name="btn_cancel">Cancelar</string>
+    <string name="language_dialog_title">Selecionar idioma</string>
+    <string name="video_thumbnail_desc">Miniatura do vídeo</string>
+    <string name="play_desc">Reproduzir</string>
+    <string name="video_no_name">Vídeo sem nome</string>
+    <string name="video_title_fallback">Vídeo</string>
+    <string name="btn_back_home">← Voltar ao Início</string>
+
+    <string name="storage_title">Armazenamento</string>
+    <string name="btn_back">← Voltar</string>
+    <string name="storage_used_label">Espaço utilizado</string>
+    <string name="storage_files_label">Arquivos do Telegram (%1$d)</string>
+    <string name="storage_database_label">Banco de dados (sessão, mensagens)</string>
+    <string name="storage_limit_title">Limite de armazenamento</string>
+    <string name="auto_clean_enabled">Limpeza automática: ativada</string>
+    <string name="auto_clean_disabled">Limpeza automática: desativada (apenas avisa)</string>
+    <string name="btn_deactivate">Desativar</string>
+    <string name="btn_activate">Ativar</string>
+    <string name="storage_session_note">A sessão nunca é encerrada ao limpar: só são apagados arquivos que o Telegram pode baixar novamente quando você precisar.</string>
+    <string name="btn_cleaning">Limpando...</string>
+    <string name="btn_clean_files">🗑 Limpar arquivos</string>
+    <string name="storage_freed_message">Foram liberados %1$s</string>
+</resources>
