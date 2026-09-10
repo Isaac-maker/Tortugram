@@ -19,8 +19,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.os.LocaleListCompat
 import androidx.tv.material3.Button
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Tab
@@ -50,6 +53,23 @@ fun HomeScreen(
     var showExitDialog by remember { mutableStateOf(false) }
     val activity = LocalContext.current as? Activity
 
+    // Selector de idioma: cada opción se muestra en su propio idioma
+    // (no se traduce el nombre del idioma) y aplica el cambio con la API
+    // de "idioma por app" de AndroidX, sin reiniciar manualmente la Activity.
+    var showLanguageDialog by remember { mutableStateOf(false) }
+    val languages = remember {
+        listOf(
+            "es" to "Español",
+            "en" to "English",
+            "pt" to "Português",
+            "fr" to "Français",
+            "ru" to "Русский",
+            "zh" to "中文",
+            "hi" to "हिन्दी",
+            "ja" to "日本語"
+        )
+    }
+
     BackHandler {
         showExitDialog = true
     }
@@ -60,26 +80,64 @@ fun HomeScreen(
             containerColor = MaterialTheme.colorScheme.surface,
             title = {
                 Text(
-                    text = "Salir de Tortugram",
+                    text = stringResource(R.string.exit_dialog_title),
                     style = MaterialTheme.typography.titleLarge,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             },
             text = {
                 Text(
-                    text = "¿Seguro que quieres salir de la aplicación?",
+                    text = stringResource(R.string.exit_dialog_message),
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onBackground
                 )
             },
             confirmButton = {
                 Button(onClick = { activity?.finish() }) {
-                    Text("Sí")
+                    Text(stringResource(R.string.btn_yes))
                 }
             },
             dismissButton = {
                 Button(onClick = { showExitDialog = false }) {
-                    Text("No")
+                    Text(stringResource(R.string.btn_no))
+                }
+            }
+        )
+    }
+
+    if (showLanguageDialog) {
+        AlertDialog(
+            onDismissRequest = { showLanguageDialog = false },
+            containerColor = MaterialTheme.colorScheme.surface,
+            title = {
+                Text(
+                    text = stringResource(R.string.language_dialog_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            },
+            text = {
+                Column {
+                    languages.forEach { (tag, nativeName) ->
+                        Button(
+                            onClick = {
+                                showLanguageDialog = false
+                                AppCompatDelegate.setApplicationLocales(
+                                    LocaleListCompat.forLanguageTags(tag)
+                                )
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 4.dp)
+                        ) {
+                            Text(nativeName)
+                        }
+                    }
+                }
+            },
+            confirmButton = {
+                Button(onClick = { showLanguageDialog = false }) {
+                    Text(stringResource(R.string.btn_cancel))
                 }
             }
         )
@@ -97,7 +155,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "Tortugram, by isaac-maker",
+                text = stringResource(R.string.app_home_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
@@ -106,7 +164,7 @@ fun HomeScreen(
 
                 if (chats.isNotEmpty()) {
                     Text(
-                        text = "${chats.size} chats",
+                        text = stringResource(R.string.chats_count, chats.size),
                         style = MaterialTheme.typography.labelLarge,
                         color = MaterialTheme.colorScheme.primary
                     )
@@ -114,8 +172,14 @@ fun HomeScreen(
                     Spacer(modifier = Modifier.width(16.dp))
                 }
 
+                Button(onClick = { showLanguageDialog = true }) {
+                    Text(stringResource(R.string.btn_language))
+                }
+
+                Spacer(modifier = Modifier.width(8.dp))
+
                 Button(onClick = onOpenStorage) {
-                    Text("🗄 Almacenamiento")
+                    Text(stringResource(R.string.btn_storage))
                 }
             }
         }
@@ -151,7 +215,7 @@ fun HomeScreen(
                     CircularProgressIndicator()
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Cargando carpeta...",
+                        text = stringResource(R.string.loading_folder),
                         style = MaterialTheme.typography.bodyMedium,
                         color = MaterialTheme.colorScheme.onBackground
                     )

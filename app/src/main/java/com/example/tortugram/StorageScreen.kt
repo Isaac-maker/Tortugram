@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Button
 import androidx.tv.material3.MaterialTheme
@@ -75,13 +76,13 @@ fun StorageScreen(
         ) {
 
             Text(
-                text = "Almacenamiento",
+                text = stringResource(R.string.storage_title),
                 style = MaterialTheme.typography.headlineMedium,
                 color = MaterialTheme.colorScheme.onBackground
             )
 
             Button(onClick = onBack) {
-                Text("← Volver")
+                Text(stringResource(R.string.btn_back))
             }
         }
 
@@ -97,7 +98,7 @@ fun StorageScreen(
         ) {
 
             Text(
-                text = "Espacio utilizado",
+                text = stringResource(R.string.storage_used_label),
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -111,12 +112,12 @@ fun StorageScreen(
             Spacer(modifier = Modifier.height(12.dp))
 
             StorageRow(
-                label = "Archivos de Telegram ($fileCount)",
+                label = stringResource(R.string.storage_files_label, fileCount),
                 value = StorageManager.formatBytes(filesSize)
             )
 
             StorageRow(
-                label = "Base de datos (sesión, mensajes)",
+                label = stringResource(R.string.storage_database_label),
                 value = StorageManager.formatBytes(databaseSize)
             )
         }
@@ -125,7 +126,7 @@ fun StorageScreen(
 
         // --- Límite / limpieza automática ---
         Text(
-            text = "Límite de almacenamiento",
+            text = stringResource(R.string.storage_limit_title),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
         )
@@ -154,9 +155,9 @@ fun StorageScreen(
 
             Text(
                 text = if (autoCleanEnabled) {
-                    "Limpieza automática: activada"
+                    stringResource(R.string.auto_clean_enabled)
                 } else {
-                    "Limpieza automática: desactivada (solo avisa)"
+                    stringResource(R.string.auto_clean_disabled)
                 },
                 style = MaterialTheme.typography.bodyMedium,
                 color = MaterialTheme.colorScheme.onBackground
@@ -167,14 +168,18 @@ fun StorageScreen(
                     StorageManager.setAutoCleanEnabled(!autoCleanEnabled)
                 }
             ) {
-                Text(if (autoCleanEnabled) "Desactivar" else "Activar")
+                Text(
+                    if (autoCleanEnabled) {
+                        stringResource(R.string.btn_deactivate)
+                    } else {
+                        stringResource(R.string.btn_activate)
+                    }
+                )
             }
         }
 
         Text(
-            text = "La sesión nunca se cierra al limpiar: solo se " +
-                    "borran archivos que Telegram puede volver a " +
-                    "descargar cuando los necesites.",
+            text = stringResource(R.string.storage_session_note),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -182,15 +187,23 @@ fun StorageScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         // --- Botón de limpieza manual ---
+        val freedMessageTemplate = stringResource(R.string.storage_freed_message)
+
         Button(
             onClick = {
                 StorageManager.cleanNow { freed ->
                     lastFreedMessage =
-                        "Se liberaron ${StorageManager.formatBytes(freed)}"
+                        String.format(freedMessageTemplate, StorageManager.formatBytes(freed))
                 }
             }
         ) {
-            Text(if (isBusy) "Limpiando..." else "🗑 Limpiar archivos")
+            Text(
+                if (isBusy) {
+                    stringResource(R.string.btn_cleaning)
+                } else {
+                    stringResource(R.string.btn_clean_files)
+                }
+            )
         }
 
         Spacer(modifier = Modifier.height(12.dp))

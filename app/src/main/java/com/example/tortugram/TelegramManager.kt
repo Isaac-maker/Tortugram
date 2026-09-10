@@ -34,8 +34,8 @@ object TelegramManager {
 
     private const val TAG = "TelegramManager"
 
-    private const val API_ID =  36017199
-    private const val API_HASH = "6ce83dcc204c5805c876cc6ddf6bc6b2"
+    private const val API_ID =  0000000000
+    private const val API_HASH = "api"
 
     /*
      * Tamaño de página del historial.

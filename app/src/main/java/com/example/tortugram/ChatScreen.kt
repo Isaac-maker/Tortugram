@@ -17,7 +17,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.itemsIndexed
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -38,6 +38,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.MaterialTheme
@@ -55,7 +56,10 @@ import java.io.File
 @Composable
 fun ChatScreen(
     chatId: Long,
-    onVideoClick: (MessageVideo, String) -> Unit,
+    // Ahora entrega también la lista completa de videos del chat y el
+    // índice del que se tocó, para poder navegar "anterior"/"siguiente"
+    // desde VideoPlayerScreen sin que esa pantalla necesite conocer TDLib.
+    onVideoClick: (videos: List<MessageVideo>, index: Int, title: String) -> Unit,
     onBack: () -> Unit = {}
 ) {
 
@@ -161,16 +165,18 @@ fun ChatScreen(
             Modifier.fillMaxSize()
     ) {
 
-        items(
+        itemsIndexed(
 
             items =
                 videoMessages,
 
-            key = {
-                it.first
+            key = { _, item ->
+                item.first
             }
 
-        ) { item ->
+        ) { index, item ->
+
+            val fallbackVideoTitle = stringResource(R.string.video_title_fallback)
 
             VideoThumbnailCard(
 
@@ -187,11 +193,12 @@ fun ChatScreen(
                                 item.second.caption.text
                             }
                             .ifEmpty {
-                                "Video"
+                                fallbackVideoTitle
                             }
 
                     onVideoClick(
-                        item.second,
+                        videoMessages.map { it.second },
+                        index,
                         title
                     )
                 }
@@ -279,7 +286,7 @@ private fun VideoThumbnailCard(
                         File(localPath),
 
                     contentDescription =
-                        "Miniatura del video",
+                        stringResource(R.string.video_thumbnail_desc),
 
                     modifier =
                         Modifier.fillMaxSize(),
@@ -295,7 +302,7 @@ private fun VideoThumbnailCard(
                     Icons.Default.PlayArrow,
 
                 contentDescription =
-                    "Reproducir",
+                    stringResource(R.string.play_desc),
 
                 tint =
                     Color.White,
@@ -321,7 +328,7 @@ private fun VideoThumbnailCard(
         val displayName =
             videoContent.video.fileName
                 .ifEmpty { videoContent.caption.text }
-                .ifEmpty { "Video sin nombre" }
+                .ifEmpty { stringResource(R.string.video_no_name) }
 
         Spacer(
             modifier =
